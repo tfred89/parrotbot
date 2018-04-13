@@ -93,8 +93,8 @@ def tags(bot):
         client.bots.post(bot, text)
 
 def places(bot, place):
-        text = 'Check out this map'
-        loc = attachments.location(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
+        text = 'Check out this map: '
+        loc = attachments.Location(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
         client.bots.post(bot, text, attachments = loc)
                 
 
