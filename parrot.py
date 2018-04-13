@@ -33,7 +33,7 @@ def post():
                         for y in maps.keys():
                                 if y in msg:
                                         place = y
-                                        places(bot, group, place)
+                                        places(bot, place)
                                         
                 
         return "ok", 200
@@ -92,9 +92,9 @@ def tags(bot):
                 text += m + ' '
         client.bots.post(bot, text)
 
-def places(bot, group, place):
+def places(bot, place):
         text = 'Check out this map'
-        loc = location.Attachments(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
+        loc = attachments.location(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
         client.bots.post(bot, text, attachments = loc)
                 
 
@@ -103,7 +103,7 @@ peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339']
          '@games':['482066', '8206212', '2513726', '6698773', '30472260', '8206213', '34951757', '51268339'],
          '@sk8':['2513725', '482066', '2513726', '2513724', '36739', '2513723', '30685722', '35902999']}
 
-maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', '30.2216537', '-97.78669009999999']} #[address, lat, long]
+maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999]} #[address, lat, long]
 
 
 
