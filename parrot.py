@@ -58,14 +58,14 @@ def at_all(bot, group):
 	client.bots.post(bot, text, attachments = [tag])
 
 def skwak(bot, key):
-        user_ids = peeps[key]
+    user_ids = peeps[key]
 	loci = []
 	text = ""
 	pnt = 0
 
 	for m in user_ids:
 		name = "@" + m.data["nickname"] + " "
-                n = [pnt, len(name)]
+        n = [pnt, len(name)]
 		loci.append(n) 
 		pnt += len(name)
 		text += name
