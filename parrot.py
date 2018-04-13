@@ -77,10 +77,10 @@ def skwak(bot, key):
 	client.bots.post(bot, text, attachments = [tag])
 
 def tags(bot):
-        text = ""
-        for m in peeps.keys():
-                text += m + ' '
-        client.bots.post(bot, text)
+	text = ""
+	for m in peeps.keys():
+		text += m + ' '
+	client.bots.post(bot, text)
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739'],
          '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
