@@ -95,7 +95,7 @@ def tags(bot):
 def places(bot, place):
         text = 'Check out this map: '
         loc = attachments.Location(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
-        client.bots.post(bot, text, attachments = loc)
+        client.bots.post(bot, text, attachments = [loc])
                 
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339'],
