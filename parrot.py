@@ -20,14 +20,15 @@ def post():
         bot = bot_id
         group = client.groups.get(gID)
         msg = data['text']
-        if '@coffee' in msg:
-                at_all(bot, group)
-        for y in peeps.keys():
-                if y in msg:
-                        key = y
-                        skwak(bot, group, key)
-        if '@parrot' in msg and 'tags' in msg:
-                tags(bot)
+        if data['name'] != 'Parrot Bot 2.0 - The Squawkening':
+                if '@coffee' in msg:
+                        at_all(bot, group)
+                for y in peeps.keys():
+                        if y in msg:
+                                key = y
+                                skwak(bot, group, key)
+                if '@parrot' in msg and 'tags' in msg:
+                        tags(bot)
                 
         return "ok", 200
 
