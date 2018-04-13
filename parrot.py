@@ -71,8 +71,7 @@ def skwak(bot, group, key):
                         loci.append(n) 
                         pnt += len(name)
                         text += name
-                except:
-                        pass
+                        
         mention = {}
         mention["user_ids"] = user_ids
         mention["loci"] = loci
