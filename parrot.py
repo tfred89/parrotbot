@@ -26,7 +26,7 @@ def post():
                 if y in msg:
                         key = y
                         skwak(bot, key)
-        if '@parrot' in msg and 'tags' in message:
+        if '@parrot' in msg and 'tags' in msg:
                 tags(bot)
                 
         return "ok", 200
@@ -63,12 +63,14 @@ def skwak(bot, key):
         text = ""
         pnt = 0
         for m in user_ids:
-                name = "@" + m.data["nickname"] + " "
-                n = [pnt, len(name)]
-                loci.append(n) 
-                pnt += len(name)
-                text += name
-
+                try:
+                        name = "@" + m.data["nickname"] + " "
+                        n = [pnt, len(name)]
+                        loci.append(n) 
+                        pnt += len(name)
+                        text += name
+                except:
+                        pass
         mention = {}
         mention["user_ids"] = user_ids
         mention["loci"] = loci
