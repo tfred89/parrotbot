@@ -10,7 +10,7 @@ from flask import Flask, request
 
 token = 'kv7Vk1HwnchB319idfHypGutxIwFN0xOByqzsZQb'
 client = Client.from_token(token)
-bot_id = "477f47d075bc1174ff2aba91e6"
+bot_id = "1ebecf67b694992ac5f7821a07"
 
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
