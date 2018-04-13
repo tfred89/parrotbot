@@ -15,72 +15,71 @@ bot_id = "477f47d075bc1174ff2aba91e6"
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def post():
-	data = request.get_json()
-	gID = data['group_id']
-	bot = bot_id
-	group = client.groups.get(gID)
-	msg = data['text']
-	if '@coffee' in msg:
-		at_all(bot, group)
-	for y in peeps.keys():
+        data = request.get_json()
+        gID = data['group_id']
+        bot = bot_id
+        group = client.groups.get(gID)
+        msg = data['text']
+        if '@coffee' in msg:
+                at_all(bot, group)
+        for y in peeps.keys():
                 if y in msg:
                         key = y
                         skwak(bot, key)
-	if '@parrot' in msg and 'tags' in message:
+        if '@parrot' in msg and 'tags' in message:
                 tags(bot)
                 
-	return "ok", 200
+        return "ok", 200
 
 def at_all(bot, group):
-	members = group.members
-	user_ids = []
-	loci = []
-	text = ""
-	pnt = 0
+        members = group.members
+        user_ids = []
+        loci = []
+        text = ""
+        pnt = 0
 
-	for m in members:
-		id = m.data['user_id']
-		name = "@" + m.data["nickname"] + " "
+        for m in members:
+                id = m.data['user_id']
+                name = "@" + m.data["nickname"] + " "
 
-		user_ids.append(id)
+                user_ids.append(id)
 
-		n = [pnt, len(name)]
-		loci.append(n) 
-		pnt += len(name)
+                n = [pnt, len(name)]
+                loci.append(n) 
+                pnt += len(name)
 
-		text += name
+                text += name
 
-	mention = {}
-	mention["user_ids"] = user_ids
-	mention["loci"] = loci
-	tag = attachments.Mentions(mention['loci'], mention['user_ids'])
+        mention = {}
+        mention["user_ids"] = user_ids
+        mention["loci"] = loci
+        tag = attachments.Mentions(mention['loci'], mention['user_ids'])
 
-	client.bots.post(bot, text, attachments = [tag])
+        client.bots.post(bot, text, attachments = [tag])
 
 def skwak(bot, key):
         user_ids = peeps[key]
-	loci = []
-	text = ""
-	pnt = 0
-
-	for m in user_ids:
-		name = "@" + m.data["nickname"] + " "
+        loci = []
+        text = ""
+        pnt = 0
+        for m in user_ids:
+                name = "@" + m.data["nickname"] + " "
                 n = [pnt, len(name)]
-		loci.append(n) 
-		pnt += len(name)
-		text += name
+                loci.append(n) 
+                pnt += len(name)
+                text += name
 
-	mention = {}
-	mention["user_ids"] = user_ids
-	mention["loci"] = loci
-	tag = attachments.Mentions(mention['loci'], mention['user_ids'])
-	client.bots.post(bot, text, attachments = [tag])
+        mention = {}
+        mention["user_ids"] = user_ids
+        mention["loci"] = loci
+        tag = attachments.Mentions(mention['loci'], mention['user_ids'])
+        client.bots.post(bot, text, attachments = [tag])
 
 def tags(bot):
-	text = ""
-	for m in peeps.keys():
-		text += m + ' '
-	client.bots.post(bot, text)
+        text = ""
+        for m in peeps.keys():
+                text += m + ' '
+        client.bots.post(bot, text)
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739'],
          '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
