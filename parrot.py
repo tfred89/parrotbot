@@ -25,7 +25,7 @@ def post():
         for y in peeps.keys():
                 if y in msg:
                         key = y
-                        skwak(bot, key)
+                        skwak(bot, group, key)
         if '@parrot' in msg and 'tags' in msg:
                 tags(bot)
                 
@@ -57,13 +57,15 @@ def at_all(bot, group):
 
         client.bots.post(bot, text, attachments = [tag])
 
-def skwak(bot, key):
-        user_ids = peeps[key]
+def skwak(bot, group, key):
+        members = group.members
+        user_ids = []
         loci = []
         text = ""
         pnt = 0
-        for m in user_ids:
-                try:
+        for m in members:
+                id = m.data['user_id']
+                if id in peeps[key]:
                         name = "@" + m.data["nickname"] + " "
                         n = [pnt, len(name)]
                         loci.append(n) 
@@ -81,6 +83,7 @@ def tags(bot):
         text = ""
         for m in peeps.keys():
                 text += m + ' '
+                
         client.bots.post(bot, text)
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739'],
