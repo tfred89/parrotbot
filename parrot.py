@@ -67,6 +67,7 @@ def skwak(bot, group, key):
                 id = m.data['user_id']
                 if id in peeps[key]:
                         name = "@" + m.data["nickname"] + " "
+                        user_ids.append(id)
                         n = [pnt, len(name)]
                         loci.append(n) 
                         pnt += len(name)
