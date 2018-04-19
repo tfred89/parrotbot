@@ -24,7 +24,7 @@ def post():
                 if '@coffee' in msg:
                         at_all(bot, group)
                 for y in peeps.keys():
-                        if y in msg:
+                        if y in msg.lower():
                                 key = y
                                 skwak(bot, group, key)
                 if '@parrot' in msg and 'tags' in msg:
@@ -34,6 +34,12 @@ def post():
                                 if y in msg:
                                         place = y
                                         places(bot, place)
+                if '@parrot' in msg and 'maps' in msg:
+                        places = ''
+                        for i in maps.keys():
+                                places += i + ' '
+                        text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are ' + places
+                        client.bots.post(bot, text)
                                         
                 
         return "ok", 200
@@ -94,16 +100,25 @@ def tags(bot):
 
 def places(bot, place):
         text = 'Check out this map: '
-        loc = attachments.Location(name = place + maps[place][0], lat=maps[place][1], lng=maps[place][2])
+        loc = attachments.Location(name = place + ' ' + maps[place][0], lat=maps[place][1], lng=maps[place][2])
         client.bots.post(bot, text, attachments = [loc])
                 
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339'],
          '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
          '@games':['482066', '8206212', '2513726', '6698773', '30472260', '8206213', '34951757', '51268339'],
-         '@sk8':['2513725', '482066', '2513726', '2513724', '36739', '2513723', '30685722', '35902999']}
+         '@sk8':['2513725', '482066', '2513726', '2513724', '36739', '2513723', '30685722', '35902999'],
+         '@nac':['2513725', '2513718', '2513726', '36741', '2513723', '30472260', '34951757']}
 
-maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999]} #[address, lat, long]
-
-
+ #[address, lat, long]
+maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999],
+        'TBux':['6930 Auckland Dr, Austin, TX 78749, USA', 30.211053, -97.89042310000002]}
+def user_add(usr, group, key):  ##likely needs a database, I don't think the bot can dynamically change .py files that run the bot
+		members = group.members
+		for m in members:
+				if usr in m.data["nickname"]:
+						id = m.data["user_id"]
+						peeps[key].append(id)
+						
+						
 
