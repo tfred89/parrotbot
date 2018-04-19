@@ -35,10 +35,10 @@ def post():
                                         place = y
                                         places(bot, place)
                 if '@parrot' in msg and 'maps' in msg:
-                        places = ''
+                        spot = ''
                         for i in maps.keys():
-                                places += i + ' '
-                        text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are ' + places
+                                spot += i + ', '
+                        text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
                         client.bots.post(bot, text)
                                         
                 
