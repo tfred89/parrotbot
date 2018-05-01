@@ -8,9 +8,9 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
 
-token = 'kv7Vk1HwnchB319idfHypGutxIwFN0xOByqzsZQb'
+token = os.environ['gm_key']
 client = Client.from_token(token)
-bot_id = "1ebecf67b694992ac5f7821a07"
+bot_id = '1ebecf67b694992ac5f7821a07'
 
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
@@ -31,7 +31,7 @@ def post():
                         tags(bot)
                 if '@parrot' in msg and 'where' in msg:
                         for y in maps.keys():
-                                if y in msg:
+                                if y in msg.lower():
                                         place = y
                                         places(bot, place)
                 if '@parrot' in msg and 'maps' in msg:
