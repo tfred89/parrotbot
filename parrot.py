@@ -20,7 +20,7 @@ def post():
         bot = bot_id
         group = client.groups.get(gID)
         msg = data['text']
-        if data['name'] != 'Parrot Bot 2.0 - The Squawkening':
+        if data['name'] != 'Parrot Bot 2.0':
                 if '@coffee' in msg:
                         at_all(bot, group)
                 for y in peeps.keys():
@@ -44,7 +44,7 @@ def post():
                 
         return "ok", 200
 
-def at_all(bot, group):
+def at_all(bot, group):  ##sends mention to all members of group
         members = group.members
         user_ids = []
         loci = []
@@ -52,25 +52,25 @@ def at_all(bot, group):
         pnt = 0
 
         for m in members:
-                id = m.data['user_id']
-                name = "@" + m.data["nickname"] + " "
+                id = m.data['user_id']  ## pulls all user IDs
+                name = "@" + m.data["nickname"] + " "  ##creats text variable for each member
 
-                user_ids.append(id)
+                user_ids.append(id)  ## adds user to list
 
-                n = [pnt, len(name)]
-                loci.append(n) 
-                pnt += len(name)
+                n = [pnt, len(name)]  ## loci list of member
+                loci.append(n) ## adds member and loci to list
+                pnt += len(name)  ## goes to next available point in loci
 
-                text += name
+                text += name  ## text variable added to list
 
-        mention = {}
+        mention = {}  ## creates mention dictionary with userID as the key and loci as the value
         mention["user_ids"] = user_ids
         mention["loci"] = loci
-        tag = attachments.Mentions(mention['loci'], mention['user_ids'])
+        tag = attachments.Mentions(mention['loci'], mention['user_ids'])  ## creates mention attachments
 
         client.bots.post(bot, text, attachments = [tag])
 
-def skwak(bot, group, key):
+def skwak(bot, group, key):  ## creates tags for specific groups with 'key' being the specific group
         members = group.members
         user_ids = []
         loci = []
@@ -92,7 +92,7 @@ def skwak(bot, group, key):
         tag = attachments.Mentions(mention['loci'], mention['user_ids'])
         client.bots.post(bot, text, attachments = [tag])
 
-def tags(bot):
+def tags(bot):  ## prints all available groups to be called
         text = ""
         for m in peeps.keys():
                 text += m + ' '
@@ -108,7 +108,8 @@ peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339']
          '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
          '@games':['482066', '8206212', '2513726', '6698773', '30472260', '8206213', '34951757', '51268339'],
          '@sk8':['2513725', '482066', '2513726', '2513724', '36739', '2513723', '30685722', '35902999'],
-         '@nac':['2513725', '2513718', '2513726', '36741', '2513723', '30472260', '34951757']}
+         '@nac':['2513725', '2513718', '2513726', '36741', '2513723', '30472260', '34951757'],
+         '@austin':['2513725', '8206189', '482066', '8206212', '2513726', '2513724', '36739', '2513723', '36740', '30472260', '30685722', '35902999']}
 
  #[address, lat, long]
 maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999],
