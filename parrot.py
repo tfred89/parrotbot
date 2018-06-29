@@ -34,6 +34,8 @@ def post():
                                 if y in msg.lower():
                                         place = y
                                         places(bot, place)
+                if '@jeff' in msg:
+                        jeff(bot)
                 if '@parrot' in msg and 'maps' in msg:
                         spot = ''
                         for i in maps.keys():
@@ -96,6 +98,10 @@ def tags(bot):  ## prints all available groups to be called
         text = ""
         for m in peeps.keys():
                 text += m + ' '
+        client.bots.post(bot, text)
+
+def jeff(bot):
+        text = 'The @Jeff simulation has been terminated.'
         client.bots.post(bot, text)
 
 def places(bot, place):
