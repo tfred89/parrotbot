@@ -42,6 +42,8 @@ def post():
                                 spot += i + ', '
                         text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
                         client.bots.post(bot, text)
+                if 'nsfw' in msg:
+                        nsfw(bot)
                                         
                 
         return "ok", 200
@@ -99,6 +101,12 @@ def tags(bot):  ## prints all available groups to be called
         for m in peeps.keys():
                 text += m + ' '
         client.bots.post(bot, text)
+
+def nsfw(bot):
+        text = '.'
+        for m in range(10):
+                client.bots.post(bot, text)
+                
 
 def jeff(bot):
         text = 'The @Jeff simulation has been terminated.'
