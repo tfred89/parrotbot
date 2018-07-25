@@ -42,7 +42,7 @@ def post():
                                 spot += i + ', '
                         text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
                         client.bots.post(bot, text)
-                if 'nsfw' in msg:
+                if 'nsfw' in msg.lower():
                         nsfw(bot)
                                         
                 
