@@ -35,10 +35,10 @@ def post():
                                         place = y
                                         places(bot, place)
                 if '@parrot' in msg and 'add' in msg.lower():
-                        user_add(msg):
+                        user_add(msg)
 
                 if '@parrot' in msg and 'remove' in msg.lower():
-                        user_delete(msg):                                   
+                        user_delete(msg)                                  
 
                 if '@parrot' in msg and 'maps' in msg:
                         spot = ''
