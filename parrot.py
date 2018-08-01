@@ -34,14 +34,19 @@ def post():
                                 if y in msg.lower():
                                         place = y
                                         places(bot, place)
-                if '@jeff' in msg:
-                        jeff(bot)
+                if '@parrot' in msg and 'add' in msg.lower():
+                        user_add(msg):
+
+                if '@parrot' in msg and 'remove' in msg.lower():
+                        user_delete(msg):                                   
+
                 if '@parrot' in msg and 'maps' in msg:
                         spot = ''
                         for i in maps.keys():
                                 spot += i + ', '
                         text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
                         client.bots.post(bot, text)
+                        
                 if 'nsfw' in msg.lower():
                         nsfw(bot)
                                         
@@ -108,10 +113,6 @@ def nsfw(bot):
                 client.bots.post(bot, text)
                 
 
-def jeff(bot):
-        text = 'The @Jeff simulation has been terminated.'
-        client.bots.post(bot, text)
-
 def places(bot, place):
         text = 'Check out this map: '
         loc = attachments.Location(name = place + ' ' + maps[place][0], lat=maps[place][1], lng=maps[place][2])
@@ -126,14 +127,28 @@ peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339']
          '@austin':['2513725', '8206189', '482066', '8206212', '2513726', '2513724', '36739', '2513723', '36740', '30472260', '30685722', '35902999']}
 
  #[address, lat, long]
-maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999],
-        'TBux':['6930 Auckland Dr, Austin, TX 78749, USA', 30.211053, -97.89042310000002]}
-def user_add(usr, group, key):  ##likely needs a database, I don't think the bot can dynamically change .py files that run the bot
-		members = group.members
-		for m in members:
-				if usr in m.data["nickname"]:
-						id = m.data["user_id"]
-						peeps[key].append(id)
-						
+maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999]}
+
+def user_add(msg):
+    try:
+            if msg.data['attachments'][0]['type'] == 'mentions':
+                    usr_ids = msg.data['attachments'][0]['user_ids']
+            for key in peeps:
+                    if key in msg:
+                        g = key
+                        peeps[g].append(user_ids)
+    except:
+            pass
+
+def user_delete(msg):
+    try:
+            if msg.data['attachments'][0]['type'] == 'mentions':
+                    usr_ids = msg.data['attachments'][0]['user_ids']
+            for key in peeps:
+                    if key in msg:
+                        g = key
+                        peeps[g].remove(user_ids)
+    except:
+            pass						
 						
 
