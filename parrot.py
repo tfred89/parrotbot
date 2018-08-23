@@ -27,18 +27,18 @@ def post():
                         if y in msg.lower():
                                 key = y
                                 skwak(bot, group, key)
-                if '@parrot' in msg and 'tags' in msg:
+                if '@parrot' in msg and 'groups' in msg:
                         tags(bot)
                 if '@parrot' in msg and 'where' in msg:
                         for y in maps.keys():
                                 if y in msg.lower():
                                         place = y
                                         places(bot, place)
-                if '@parrot' in msg and 'add' in msg.lower():
-                        user_add(msg)
-
-                if '@parrot' in msg and 'remove' in msg.lower():
-                        user_delete(msg)                                  
+##                if '@parrot' in msg and 'add' in msg.lower():
+##                        user_add(msg)
+##
+##                if '@parrot' in msg and 'remove' in msg.lower():
+##                        user_delete(msg)                                  
 
                 if '@parrot' in msg and 'maps' in msg:
                         spot = ''
@@ -129,7 +129,7 @@ peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339']
  #[address, lat, long]
 maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999]}
 
-def user_add(msg):
+def user_add(msg):  ## needs work, can't dynaicaly change source file
     try:
             if msg.data['attachments'][0]['type'] == 'mentions':
                     usr_ids = msg.data['attachments'][0]['user_ids']
