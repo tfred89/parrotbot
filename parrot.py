@@ -1,12 +1,14 @@
 import os
 import sys
 import json
-import groupy
 from groupy.client import Client
 from groupy import attachments
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
+from datetime import datetime
+
+
 
 token = os.environ['gm_key']
 client = Client.from_token(token)
@@ -20,7 +22,7 @@ def post():
         bot = bot_id
         group = client.groups.get(gID)
         msg = data['text']
-        if data['name'] != 'Parrot Bot 2.0':
+        if data['sender_type'] != 'bot':
                 if '@coffee' in msg:
                         at_all(bot, group)
                 for y in peeps.keys():
@@ -38,7 +40,7 @@ def post():
 ##                        user_add(msg)
 ##
 ##                if '@parrot' in msg and 'remove' in msg.lower():
-##                        user_delete(msg)                                  
+##                        user_delete(msg)
 
                 if '@parrot' in msg and 'maps' in msg:
                         spot = ''
@@ -46,11 +48,13 @@ def post():
                                 spot += i + ', '
                         text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
                         client.bots.post(bot, text)
-                        
+
                 if 'nsfw' in msg.lower():
                         nsfw(bot)
-                                        
-                
+                        
+                if '@jeff' in msg:
+                    jeff_gone(bot)
+
         return "ok", 200
 
 def at_all(bot, group):  ##sends mention to all members of group
@@ -91,10 +95,10 @@ def skwak(bot, group, key):  ## creates tags for specific groups with 'key' bein
                         name = "@" + m.data["nickname"] + " "
                         user_ids.append(id)
                         n = [pnt, len(name)]
-                        loci.append(n) 
+                        loci.append(n)
                         pnt += len(name)
                         text += name
-                        
+
         mention = {}
         mention["user_ids"] = user_ids
         mention["loci"] = loci
@@ -111,13 +115,22 @@ def nsfw(bot):
         text = '.'
         for m in range(10):
                 client.bots.post(bot, text)
-                
+
 
 def places(bot, place):
         text = 'Check out this map: '
         loc = attachments.Location(name = place + ' ' + maps[place][0], lat=maps[place][1], lng=maps[place][2])
         client.bots.post(bot, text, attachments = [loc])
-                
+
+def jeff_gone(bot):
+    left = int('1523287374')
+    now = datetime.now().timestamp()
+    td = str(int((now - left)/(60*60*24)))
+    text = "Jeff has been gone for %s days. He's not coming back" % td
+    client.bots.post(bot, text)
+
+
+
 
 peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339', '8206189', '2513726', '34951757'],
          '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
@@ -150,6 +163,4 @@ def user_delete(msg):
                         g = key
                         peeps[g].remove(user_ids)
     except:
-            pass						
-						
-
+            pass
