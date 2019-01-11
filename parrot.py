@@ -3,10 +3,9 @@ import sys
 import json
 from groupy.client import Client
 from groupy import attachments
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
 from flask import Flask, request
 from datetime import datetime
+from groups import peeps
 
 
 
@@ -31,27 +30,10 @@ def post():
                                 skwak(bot, group, key)
                 if '@parrot' in msg and 'groups' in msg:
                         tags(bot)
-                if '@parrot' in msg and 'where' in msg:
-                        for y in maps.keys():
-                                if y in msg.lower():
-                                        place = y
-                                        places(bot, place)
-##                if '@parrot' in msg and 'add' in msg.lower():
-##                        user_add(msg)
-##
-##                if '@parrot' in msg and 'remove' in msg.lower():
-##                        user_delete(msg)
-
-                if '@parrot' in msg and 'maps' in msg:
-                        spot = ''
-                        for i in maps.keys():
-                                spot += i + ', '
-                        text = 'Where to? If you say "@parrot", "where", and the name of the place, a map will be posted. Current places are: ' + spot
-                        client.bots.post(bot, text)
 
                 if 'nsfw' in msg.lower():
                         nsfw(bot)
-                        
+
                 if '@jeff' in msg:
                     jeff_gone(bot)
 
@@ -117,50 +99,9 @@ def nsfw(bot):
                 client.bots.post(bot, text)
 
 
-def places(bot, place):
-        text = 'Check out this map: '
-        loc = attachments.Location(name = place + ' ' + maps[place][0], lat=maps[place][1], lng=maps[place][2])
-        client.bots.post(bot, text, attachments = [loc])
-
 def jeff_gone(bot):
     left = int('1523287374')
     now = datetime.now().timestamp()
     td = str(int((now - left)/(60*60*24)))
-    text = "Jeff has been gone for %s days. He's not coming back" % td
+    text = "Jeff has been gone for %s days. He's not coming back." % td
     client.bots.post(bot, text)
-
-
-
-
-peeps = {'@skwad':['482066', '2513725', '36741', '2513723', '36739', '51268339', '8206189', '2513726', '34951757', '8206213'],
-         '@frolf':['482066', '8206212', '2513726', '36739', '36740', '30472260', '30685722'],
-         '@games':['482066', '8206212', '2513726', '6698773', '30472260', '8206213', '34951757', '51268339'],
-         '@sk8':['2513725', '482066', '2513726', '2513724', '36739', '2513723', '30685722', '35902999'],
-         '@4k':['482066', '2513724', '36739', '2513723', '36740', '30685722', '35902999'],
-		 '@nac':['2513725', '2513718', '2513726', '36741', '2513723', '30472260', '34951757'],
-         '@austin':['2513725', '8206189', '482066', '8206212', '2513726', '2513724', '36739', '2513723', '36740', '30472260', '30685722', '35902999']}
-
- #[address, lat, long]
-maps = {'Jeri World':['4706 Clawson Rd, Austin, TX 78745, USA', 30.2216537, -97.78669009999999]}
-
-def user_add(msg):  ## needs work, can't dynaicaly change source file
-    try:
-            if msg.data['attachments'][0]['type'] == 'mentions':
-                    usr_ids = msg.data['attachments'][0]['user_ids']
-            for key in peeps:
-                    if key in msg:
-                        g = key
-                        peeps[g].append(user_ids)
-    except:
-            pass
-
-def user_delete(msg):
-    try:
-            if msg.data['attachments'][0]['type'] == 'mentions':
-                    usr_ids = msg.data['attachments'][0]['user_ids']
-            for key in peeps:
-                    if key in msg:
-                        g = key
-                        peeps[g].remove(user_ids)
-    except:
-            pass
