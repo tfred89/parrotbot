@@ -62,6 +62,11 @@ def at_all(bot, group):  ##sends mention to all members of group
         mention["user_ids"] = user_ids
         mention["loci"] = loci
         tag = attachments.Mentions(mention['loci'], mention['user_ids'])  ## creates mention attachments
+        print('\n\n ==========================================\n\n')
+        print('===== TAG DATA OUTPUT =====')
+        print(f'\n\n   Tag: {tag}\n\n')
+        print(f'\n Tag.to_json:     {tag.to_json()} \n\n')
+        print('=================== END LOG ====================== \n\n')
 
         client.bots.post(bot, text, attachments = [tag])
 
